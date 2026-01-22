@@ -4,13 +4,57 @@ import AnalyzerView from './components/AnalyzerView';
 import InfoView from './components/InfoView';
 import { ViewState, Language } from './types';
 import { translations } from './utils/translations';
+import { Facebook, Twitter, Linkedin, Instagram, Link2, Check } from 'lucide-react';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.HOME);
   const [language, setLanguage] = useState<Language>('th');
+  const [copied, setCopied] = useState(false);
 
   const toggleLanguage = () => {
     setLanguage(prev => prev === 'th' ? 'en' : 'th');
+  };
+
+  const handleShare = (platform: string) => {
+    const url = window.location.href;
+    const text = "Check out NailCare AI! 💅✨";
+    const encodedUrl = encodeURIComponent(url);
+    const encodedText = encodeURIComponent(text);
+
+    switch (platform) {
+      case 'facebook':
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, '_blank', 'width=600,height=400');
+        break;
+      case 'twitter':
+        window.open(`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`, '_blank', 'width=600,height=400');
+        break;
+      case 'linkedin':
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, '_blank', 'width=600,height=400');
+        break;
+      case 'instagram':
+        // Instagram doesn't support direct web share URLs. 
+        // Try native share (mobile) or fallback to copy.
+        if (navigator.share) {
+            navigator.share({
+                title: 'NailCare AI',
+                text: text,
+                url: url,
+            }).catch((err) => console.log('Error sharing:', err));
+        } else {
+            handleCopyLink();
+            alert('Link copied! Open Instagram to share.');
+        }
+        break;
+      case 'copy':
+        handleCopyLink();
+        break;
+    }
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const renderView = () => {
@@ -25,8 +69,18 @@ const App: React.FC = () => {
     }
   };
 
+  const SocialButton = ({ icon, onClick, label }: { icon: React.ReactNode, onClick: () => void, label: string }) => (
+    <button 
+      onClick={onClick}
+      title={label}
+      className="p-3 rounded-full bg-white text-gray-500 shadow-sm border border-gray-100 hover:bg-blue-50 hover:text-blue-600 hover:-translate-y-1 transition-all duration-200"
+    >
+      {icon}
+    </button>
+  );
+
   return (
-    <div className="min-h-screen bg-[#E5E5E5] text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
+    <div className="min-h-screen bg-[#E5E5E5] text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -64,7 +118,7 @@ const App: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <main>
+      <main className="flex-grow">
         {/* The key prop triggers a re-render and animation when the view changes */}
         <div key={currentView} className="animate-fade-in">
           {renderView()}
@@ -72,9 +126,40 @@ const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 mt-auto py-8">
-        <div className="max-w-7xl mx-auto px-4 text-center text-gray-400 text-sm">
-          <p>{translations[language].common.footer}</p>
+      <footer className="bg-white border-t border-gray-200 mt-12 py-10">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col items-center gap-6">
+          
+          <div className="flex items-center gap-4">
+            <SocialButton 
+              label="Share on Facebook" 
+              icon={<Facebook size={20} />} 
+              onClick={() => handleShare('facebook')} 
+            />
+            <SocialButton 
+              label="Share on Twitter" 
+              icon={<Twitter size={20} />} 
+              onClick={() => handleShare('twitter')} 
+            />
+             <SocialButton 
+              label="Share on LinkedIn" 
+              icon={<Linkedin size={20} />} 
+              onClick={() => handleShare('linkedin')} 
+            />
+            <SocialButton 
+              label="Share on Instagram" 
+              icon={<Instagram size={20} />} 
+              onClick={() => handleShare('instagram')} 
+            />
+            <SocialButton 
+              label="Copy Link" 
+              icon={copied ? <Check size={20} className="text-green-600" /> : <Link2 size={20} />} 
+              onClick={() => handleShare('copy')} 
+            />
+          </div>
+
+          <div className="text-center">
+            <p className="text-gray-400 text-sm">{translations[language].common.footer}</p>
+          </div>
         </div>
       </footer>
     </div>
