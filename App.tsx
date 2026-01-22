@@ -17,7 +17,7 @@ const App: React.FC = () => {
 
   const handleShare = (platform: string) => {
     const url = window.location.href;
-    const text = "Check out NailCare AI! 💅✨";
+    const text = "มาดูสุขภาพเล็บของคุณได้ที่ Nailcare กันเถอะ";
     const encodedUrl = encodeURIComponent(url);
     const encodedText = encodeURIComponent(text);
 
@@ -30,6 +30,23 @@ const App: React.FC = () => {
         break;
       case 'linkedin':
         window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, '_blank', 'width=600,height=400');
+        break;
+      case 'instagram':
+        // Instagram doesn't support direct web share URLs. 
+        // Try native share (mobile) or fallback to copy.
+        if (navigator.share) {
+            navigator.share({
+                title: 'NailCare AI',
+                text: text,
+                url: url,
+            }).catch((err) => console.log('Error sharing:', err));
+        } else {
+            handleCopyLink();
+            alert('Link copied! Open Instagram to share.');
+        }
+        break;
+      case 'copy':
+        handleCopyLink();
         break;
     }
   };
