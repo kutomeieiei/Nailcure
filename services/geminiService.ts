@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 
-// Initialize the client
+// Initialize the client using process.env.API_KEY as per guidelines.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 /**
