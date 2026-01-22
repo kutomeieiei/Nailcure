@@ -31,23 +31,6 @@ const App: React.FC = () => {
       case 'linkedin':
         window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, '_blank', 'width=600,height=400');
         break;
-      case 'instagram':
-        // Instagram doesn't support direct web share URLs. 
-        // Try native share (mobile) or fallback to copy.
-        if (navigator.share) {
-            navigator.share({
-                title: 'NailCare AI',
-                text: text,
-                url: url,
-            }).catch((err) => console.log('Error sharing:', err));
-        } else {
-            handleCopyLink();
-            alert('Link copied! Open Instagram to share.');
-        }
-        break;
-      case 'copy':
-        handleCopyLink();
-        break;
     }
   };
 
@@ -144,11 +127,6 @@ const App: React.FC = () => {
               label="Share on LinkedIn" 
               icon={<Linkedin size={20} />} 
               onClick={() => handleShare('linkedin')} 
-            />
-            <SocialButton 
-              label="Share on Instagram" 
-              icon={<Instagram size={20} />} 
-              onClick={() => handleShare('instagram')} 
             />
             <SocialButton 
               label="Copy Link" 
