@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, CheckCircle, Heart, ShieldCheck, Stethoscope } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Heart, ShieldCheck, Stethoscope, AlertCircle } from 'lucide-react';
 import { Language } from '../types';
 import { translations } from '../utils/translations';
 
@@ -31,19 +31,40 @@ const InfoView: React.FC<InfoViewProps> = ({ onBack, lang }) => {
 
       {/* Healthy Nails Section */}
       <div className="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-8 mb-8 border border-blue-100 shadow-sm animate-slide-up delay-100">
-        <div className="flex items-start gap-4">
+        <div className="flex items-center gap-4 mb-4">
           <div className="bg-blue-100 p-3 rounded-xl text-blue-600">
             <Heart size={28} />
           </div>
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-3">{t.healthy.title}</h2>
-            <p className="text-gray-700 leading-relaxed text-lg">{t.healthy.desc}</p>
+          <h2 className="text-2xl font-semibold text-gray-900">{t.healthy.title}</h2>
+        </div>
+        <p className="text-gray-700 leading-relaxed text-lg">{t.healthy.desc}</p>
+      </div>
+
+      {/* Causes Section - Moved Here */}
+      <div className="bg-gradient-to-br from-amber-50 to-white rounded-3xl p-8 mb-12 border border-amber-100 shadow-sm animate-slide-up delay-200">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="bg-amber-100 p-3 rounded-xl text-amber-600">
+            <AlertCircle size={28} />
+          </div>
+          <h2 className="text-2xl font-semibold text-gray-900">{t.causes.title}</h2>
+        </div>
+        
+        <div className="space-y-6">
+          <p className="text-gray-700 leading-relaxed text-lg">{t.causes.desc}</p>
+          
+          <div className="grid md:grid-cols-2 gap-x-8 gap-y-3">
+            {t.causes.items.map((item, index) => (
+              <div key={index} className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0"></div>
+                <span className="text-gray-700">{item}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Common Diseases Grid */}
-      <div className="mb-12 animate-slide-up delay-200">
+      <div className="mb-12 animate-slide-up delay-300">
         <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
           <Stethoscope className="text-purple-500" />
           {t.diseases.title}
@@ -68,7 +89,7 @@ const InfoView: React.FC<InfoViewProps> = ({ onBack, lang }) => {
       </div>
 
       {/* Care Tips Section */}
-      <div className="bg-green-50 rounded-3xl p-8 border border-green-100 animate-slide-up delay-300">
+      <div className="bg-green-50 rounded-3xl p-8 border border-green-100 animate-slide-up delay-400">
         <div className="flex items-center gap-3 mb-6">
           <ShieldCheck className="text-green-600" size={28} />
           <h2 className="text-2xl font-semibold text-gray-900">{t.tips.title}</h2>

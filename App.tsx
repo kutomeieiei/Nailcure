@@ -3,13 +3,21 @@ import LandingPage from './components/LandingPage';
 import AnalyzerView from './components/AnalyzerView';
 import InfoView from './components/InfoView';
 import { ViewState, Language } from './types';
-import { translations } from './utils/translations';
-import { Facebook, Twitter, Linkedin, Instagram, Link2, Check } from 'lucide-react';
+import { translations, resolveDriveUrl } from './utils/translations';
+import { Facebook, Twitter, Linkedin, Instagram, Link2, Check} from 'lucide-react';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.HOME);
   const [language, setLanguage] = useState<Language>('th');
   const [copied, setCopied] = useState(false);
+
+  // TODO: Paste your Google Drive link for the logo here
+  const LOGO_DRIVE_LINK = "https://drive.google.com/file/d/1tdrhgQQeKKq6mMF4E6SV0Qv1z4mv_2qI/view?usp=drive_link"; 
+  
+  // Use resolveDriveUrl to handle drive links properly, fallback to placeholder if empty
+  const logoSrc = LOGO_DRIVE_LINK 
+    ? resolveDriveUrl(LOGO_DRIVE_LINK) 
+    : "https://placehold.co/100x100/2563eb/ffffff?text=N";
 
   const toggleLanguage = () => {
     setLanguage(prev => prev === 'th' ? 'en' : 'th');
@@ -17,7 +25,7 @@ const App: React.FC = () => {
 
   const handleShare = (platform: string) => {
     const url = window.location.href;
-    const text = "มาดูสุขภาพเล็บของคุณได้ที่ Nailcare กันเถอะ";
+    const text = "มาดูสุขภาพเล็บของคุณได้ที่ NailMentor กันเถอะ";
     const encodedUrl = encodeURIComponent(url);
     const encodedText = encodeURIComponent(text);
 
@@ -36,7 +44,7 @@ const App: React.FC = () => {
         // Try native share (mobile) or fallback to copy.
         if (navigator.share) {
             navigator.share({
-                title: 'NailCare AI',
+                title: 'NailMentor',
                 text: text,
                 url: url,
             }).catch((err) => console.log('Error sharing:', err));
@@ -85,11 +93,15 @@ const App: React.FC = () => {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div 
-            className="flex items-center gap-2 cursor-pointer" 
+            className="flex items-center gap-3 cursor-pointer" 
             onClick={() => setCurrentView(ViewState.HOME)}
           >
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">N</div>
-            <span className="font-bold text-xl tracking-tight">NailCare <span className="text-blue-600">AI</span></span>
+            <img 
+              src={logoSrc} 
+              alt="NailMentor Logo" 
+              className="w-10 h-10 object-contain rounded-lg"
+            />
+            <span className="font-bold text-xl tracking-tight text-gray-900">NailMentor</span>
           </div>
           
           <div className="flex items-center gap-4">

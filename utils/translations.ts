@@ -1,6 +1,6 @@
 import { Language } from '../types';
 
-const resolveDriveUrl = (url: string): string => {
+export const resolveDriveUrl = (url: string): string => {
   if (!url || typeof url !== 'string') return url;
   
   if (url.includes('drive.google.com')) {
@@ -22,11 +22,11 @@ const autoResolve = <T extends Record<string, string>>(obj: T): T => {
 };
 
 const IMAGES = {
-  landing: {
-    main: 'https://scontent.fkkc2-1.fna.fbcdn.net/v/t1.15752-9/618108791_1296188362375284_7765967883277916406_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=0024fc&_nc_ohc=VjqwcCnG_xkQ7kNvwEv8QkR&_nc_oc=Adlsp_j9lIgf5rft3ntQKuEQu5gQ4MLM1vSbP3bSl3PHlgUNdaS9He8E3NMPDrCrHSo&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fkkc2-1.fna&oh=03_Q7cD4QHIAF5DMGavnogLRi5l8vnTEppZhWe_WDEJCm8Lc_e7Tw&oe=6999C66E',
-    secondary: 'https://images.unsplash.com/photo-1519415943484-9fa1873496d4?q=80&w=800&auto=format&fit=crop',
-    third: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop',
-  },
+  landing: autoResolve({
+    main: 'https://drive.google.com/file/d/1ixG9Wa0TbKG4HFNyMxLQzu3jc3uDA2y5/view?usp=drive_link',
+    secondary: 'https://drive.google.com/file/d/1LJhJqiJAgPc63G-oNTAHI8LMBc_GH_8Q/view?usp=drive_link',
+    third: 'https://drive.google.com/file/d/1C5Neqm_e1mXGjMvL5sN0WQx25PKgwRxK/view?usp=drive_link',
+  }),
   signs: {
     pale: 'https://images.unsplash.com/photo-1598448742525-50e8f0a7837f?q=80&w=500&auto=format&fit=crop',
     yellow: 'https://images.unsplash.com/photo-1611021061285-19a532638324?q=80&w=500&auto=format&fit=crop',
@@ -46,7 +46,7 @@ export const translations = {
     common: {
       home: 'หน้าแรก',
       back: 'ย้อนกลับ',
-      footer: '© 2026 NailCare AI. Made by Satit KKU',
+      footer: '© 2026 NailMentor. Made by Satit KKU',
       processing: 'กำลังวิเคราะห์...',
       uploadTip: 'คลิกเพื่ออัปโหลดรูปภาพ',
       uploadSub: 'หรือลากไฟล์มาวางที่นี่ (JPG, PNG)',
@@ -63,10 +63,10 @@ export const translations = {
       infoDesc: 'เล็บเป็นส่วนหนึ่งของร่างกายที่สามารถสะท้อนความผิดปกติของสุขภาพได้ การเปลี่ยนแปลงของสี รูปร่าง ความหนา หรือพื้นผิวของเล็บ อาจเป็นสัญญาณเตือนของโรคหรือภาวะผิดปกติบางอย่าง แม้ในระยะแรกอาการอาจดูไม่รุนแรง แต่หากถูกมองข้ามอาจนำไปสู่ปัญหาที่ซับซ้อนขึ้นได้ การสังเกตเล็บของตนเองอย่างสม่ำเสมอจึงช่วยให้รับรู้ความเปลี่ยนแปลงของร่างกายและดูแลสุขภาพได้อย่างเหมาะสม',
       infoImage: IMAGES.landing.main,
       infoTitle2: 'รู้ทันก่อนสาย',
-      infoDesc2: 'การตรวจพบความผิดปกติแต่เนิ่นๆ ช่วยให้การรักษาทำได้ง่ายและมีประสิทธิภาพมากขึ้น',
+      infoDesc2: 'เล็บเป็นหนึ่งในตัวชี้วัดสุขภาพที่หลายคนละเลย NailMentor ช่วยให้คุณตรวจสอบความผิดปกติได้ง่ายจากภาพเล็บ เพื่อรับมือปัญหาสุขภาพตั้งแต่ระยะเริ่มต้น',
       infoImage2: IMAGES.landing.secondary,
-      infoTitle3: 'เทคโนโลยีล้ำสมัย',
-      infoDesc3: 'ผสานพลังปัญญาประดิษฐ์ (AI) รุ่นล่าสุด เพื่อการวิเคราะห์ที่ละเอียดและแม่นยำ ช่วยคัดกรองความเสี่ยงได้อย่างมีประสิทธิภาพและรวดเร็ว',
+      infoTitle3: 'AI เพื่อการดูแลสุขภาพยุคใหม่',
+      infoDesc3: 'NailMentor ผสานเทคโนโลยีปัญญาประดิษฐ์ในการวิเคราะห์ภาพเล็บ ช่วยประเมินความเสี่ยงด้านสุขภาพได้อย่างรวดเร็ว สะดวก และเข้าถึงได้ทุกที่',
       infoImage3: IMAGES.landing.third,
     },
     analyzer: {
@@ -115,6 +115,12 @@ export const translations = {
           }
         ]
       },
+      causes: {
+        title: 'สาเหตุของการเกิดโรคในเล็บ',
+        desc: 'โรคในเล็บเกิดจากความผิดปกติของกระบวนการเจริญเติบโตของเล็บสาเหตุอาจมาจากการติดเชื้อ เช่น เชื้อรา หรือแบคทีเรีย รวมถึงการบาดเจ็บและการดูแลเล็บที่ไม่เหมาะสมนอกจากนี้ โรคบางชนิด เช่น ความผิดปกติของระบบภูมิคุ้มกัน การไหลเวียนเลือดผิดปกติ หรือภาวะขาดสารอาหารสามารถส่งผลให้เล็บมีการเปลี่ยนแปลงของสี รูปร่าง และความหนาความผิดปกติของเล็บอาจเกิดเฉพาะที่เล็บหรือสัมพันธ์กับสุขภาพโดยรวมของร่างกาย',
+        items: [
+        ]
+      },
       diseases: {
         title: 'โรคเล็บที่พบบ่อย',
         items: [
@@ -143,10 +149,10 @@ export const translations = {
       tips: {
         title: 'การดูแลรักษา',
         list: [
-          'รักษาความสะอาดและตัดเล็บให้สั้นพอประมาณ',
-          'หลีกเลี่ยงการกัดเล็บหรือตัดหนังรอบเล็บ',
-          'ทาครีมบำรุงมือและเล็บเป็นประจำ',
-          'สวมถุงมือเมื่อต้องสัมผัสสารเคมีหรือน้ำเป็นเวลานาน'
+          'ทำความสะอาดเล็บเป็นประจำล้างมือและขัดทำความสะอาดซอกเล็บ เพื่อลดการสะสมของสิ่งสกปรกและเชื้อโรค',
+          'ตัดเล็บให้ได้รูปอย่างเหมาะสมตัดเล็บให้สั้นพอดี ไม่ตัดลึกเกินไป เพื่อป้องกันเล็บฉีกขาดหรืออักเสบ',
+          'บำรุงเล็บและผิวรอบเล็บทาครีมหรือน้ำมันบำรุงเล็บเพื่อป้องกันเล็บแห้ง แตก หรือเปราะหักง่าย',
+          'หลีกเลี่ยงพฤติกรรมทำร้ายเล็บ งดกัดเล็บ แกะเล็บ หรือใช้เล็บแทนเครื่องมือ เพื่อป้องกันการติดเชื้อ'
         ]
       }
     }
@@ -190,7 +196,7 @@ export const translations = {
       empty: 'No analysis result yet',
       error: 'An error occurred. Please try again.',
       defaultPrompt: 'Analyze nail health from this image. Identify abnormalities and potential conditions.',
-      disclaimer: 'AI results are preliminary and do not replace medical diagnosis. The photo may be unclear causing inaccurate results, please double-check disease characteristics. Consult a specialist for proper treatment.'
+      disclaimer: 'AI results are preliminary and do not replace medical diagnosis. The photo may be unclear causing inaccurate results, please doublecheck disease characteristics. Consult a specialist for proper treatment.'
     },
     infoPage: {
       title: 'Nail Health Knowledge',
@@ -222,6 +228,20 @@ export const translations = {
             desc: 'May be associated with psoriasis or alopecia areata.',
             image: IMAGES.signs.pitted
           }
+        ]
+      },
+      causes: {
+        title: 'Common Causes of Nail Diseases',
+        desc: 'Nail diseases can stem from various causes, ranging from daily habits and environmental factors to underlying health conditions. Understanding these triggers helps in adjusting habits and preventing nail abnormalities.',
+        items: [
+          'Infections (Fungal, Bacterial, Viral)',
+          'Skin Disorders (Psoriasis, Eczema)',
+          'Systemic Diseases (Diabetes, Liver/Kidney disease, Anemia)',
+          'Trauma (Impact, Improper trimming)',
+          'Chemical Exposure (Detergents, Solvents)',
+          'Nutritional Deficiencies (Iron, Zinc, Vitamin B)',
+          'Genetics',
+          'Side effects of medications'
         ]
       },
       diseases: {
