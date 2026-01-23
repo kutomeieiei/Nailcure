@@ -31,13 +31,24 @@ const InfoView: React.FC<InfoViewProps> = ({ onBack, lang }) => {
 
       {/* Healthy Nails Section */}
       <div className="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-8 mb-8 border border-blue-100 shadow-sm animate-slide-up delay-100">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="bg-blue-100 p-3 rounded-xl text-blue-600">
-            <Heart size={28} />
+        <div className="flex flex-col md:flex-row gap-8 items-start">
+          <div className="flex-1">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="bg-blue-100 p-3 rounded-xl text-blue-600">
+                <Heart size={28} />
+              </div>
+              <h2 className="text-2xl font-semibold text-gray-900">{t.healthy.title}</h2>
+            </div>
+            <p className="text-gray-700 leading-relaxed text-lg">{t.healthy.desc}</p>
           </div>
-          <h2 className="text-2xl font-semibold text-gray-900">{t.healthy.title}</h2>
+          <div className="w-full md:w-1/3">
+             <img 
+               src={(t.healthy as any).image} 
+               alt="Healthy Nail" 
+               className="w-full h-48 object-cover rounded-2xl shadow-md rotate-2 hover:rotate-0 transition-transform duration-300 border border-white"
+             />
+          </div>
         </div>
-        <p className="text-gray-700 leading-relaxed text-lg">{t.healthy.desc}</p>
       </div>
 
       {/* Causes Section - Moved Here */}

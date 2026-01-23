@@ -22,6 +22,7 @@ const autoResolve = <T extends Record<string, string>>(obj: T): T => {
 };
 
 const IMAGES = {
+  healthy: 'https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?q=80&w=800&auto=format&fit=crop',
   landing: autoResolve({
     main: 'https://drive.google.com/file/d/1ixG9Wa0TbKG4HFNyMxLQzu3jc3uDA2y5/view?usp=drive_link',
     secondary: 'https://drive.google.com/file/d/1LJhJqiJAgPc63G-oNTAHI8LMBc_GH_8Q/view?usp=drive_link',
@@ -88,7 +89,8 @@ export const translations = {
       subtitle: 'เข้าใจสัญญาณที่เล็บพยายามบอกคุณ',
       healthy: {
         title: 'เล็บสุขภาพดีเป็นอย่างไร?',
-        desc: 'เล็บสุขภาพดีควรมีสีชมพูจางๆ พื้นผิวเรียบ แข็งแรง ไม่เปราะหรือหักง่าย โคนเล็บมีสีขาวครึ่งวงกลม (Lunula) ชัดเจน'
+        desc: 'เล็บสุขภาพดีควรมีสีชมพูจางๆ พื้นผิวเรียบ แข็งแรง ไม่เปราะหรือหักง่าย โคนเล็บมีสีขาวครึ่งวงกลม (Lunula) ชัดเจน',
+        image: IMAGES.healthy
       },
       signs: {
         title: 'สัญญาณเตือนโรค',
@@ -203,7 +205,8 @@ export const translations = {
       subtitle: 'Understanding what your nails are telling you',
       healthy: {
         title: 'What do healthy nails look like?',
-        desc: 'Healthy nails should be pinkish, smooth, strong, not brittle. The lunula (half-moon at the base) should be visible.'
+        desc: 'Healthy nails should be pinkish, smooth, strong, not brittle. The lunula (half-moon at the base) should be visible.',
+        image: IMAGES.healthy
       },
       signs: {
         title: 'Warning Signs',
