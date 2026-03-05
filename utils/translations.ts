@@ -22,7 +22,7 @@ const autoResolve = <T extends Record<string, string>>(obj: T): T => {
 };
 
 const IMAGES = {
-  autoResolve({healthy: 'https://drive.google.com/file/d/180WsHfmONNzek9FU9dTuBVMq7fIdZAvU/view?usp=sharing'}),
+  healthy:  resolveDriveUrl({'https://drive.google.com/file/d/180WsHfmONNzek9FU9dTuBVMq7fIdZAvU/view?usp=sharing'}),
   landing: autoResolve({
     main: 'https://drive.google.com/file/d/1ixG9Wa0TbKG4HFNyMxLQzu3jc3uDA2y5/view?usp=drive_link',
     secondary: 'https://drive.google.com/file/d/1LJhJqiJAgPc63G-oNTAHI8LMBc_GH_8Q/view?usp=drive_link',
